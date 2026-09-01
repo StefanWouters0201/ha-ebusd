@@ -1,5 +1,5 @@
 name: "eBUSd Multi"
-version: "0.2.0"
+version: "0.2.1"
 slug: "ebusd_multi"
 description: "Multiple ebusd instances for Brink Renovent Excellent"
 arch:

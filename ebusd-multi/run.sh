@@ -43,10 +43,12 @@ sed -i \
     -e '/,,,ExhaustFlow,/s/^r,/r9,/' \
     -e '/,,,InletFanSpeed,/s/^r,/r9,/' \
     -e '/,,,ExhaustFanSpeed,/s/^r,/r9,/' \
+    -e '/,,,InsideTemperature,/s/^r,/r9,/' \
+    -e '/,,,OutsideTemperature,/s/^r,/r9,/' \
     "${CONFIG}/encon/7c..excellent.csv"
 
 echo "[eBUSd Multi] Poll regels:"
-grep -E 'PressureInlet|PressureExhaust|InletFlow,|ExhaustFlow,|InletFanSpeed|ExhaustFanSpeed' \
+grep -E 'PressureInlet|PressureExhaust|InletFlow,|ExhaustFlow,|InletFanSpeed|ExhaustFanSpeed|InsideTemperature|OutsideTemperature' \
     "${CONFIG}/encon/7c..excellent.csv"
 
 COMMON_ARGS=(
