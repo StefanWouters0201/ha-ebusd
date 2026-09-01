@@ -9,5 +9,4 @@ exec ebusd \
     --foreground \
     --device="${DEVICE}" \
     --scanconfig \
-    --readonly \
     --loglevel=info
