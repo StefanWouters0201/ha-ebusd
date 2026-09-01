@@ -10,5 +10,6 @@ exec ebusd \
     --foreground \
     --device="${DEVICE}" \
     --scanconfig \
-    --configpath=https://ebus.github.io/en/ \
+    --configpath=https://ebus.github.io/ \
+    --configlang=en \
     --loglevel=info
