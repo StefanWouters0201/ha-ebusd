@@ -4,6 +4,7 @@ set -e
 OPTIONS="/data/options.json"
 CONFIG="/tmp/ebusd-config"
 
+KELDER_DEVICE=$(jq -r '.kelder_device' "$OPTIONS")
 BG_DEVICE=$(jq -r '.bg_device' "$OPTIONS")
 VERDIEPING_DEVICE=$(jq -r '.verdieping_device' "$OPTIONS")
 MQTT_HOST=$(jq -r '.mqtt_host' "$OPTIONS")
@@ -12,6 +13,7 @@ MQTT_USER=$(jq -r '.mqtt_user // ""' "$OPTIONS")
 MQTT_PASSWORD=$(jq -r '.mqtt_password // ""' "$OPTIONS")
 
 echo "[eBUSd Multi] gestart"
+echo "[eBUSd Multi] Kelder: ${KELDER_DEVICE}"
 echo "[eBUSd Multi] BG: ${BG_DEVICE}"
 echo "[eBUSd Multi] Verdieping: ${VERDIEPING_DEVICE}"
 echo "[eBUSd Multi] MQTT: ${MQTT_HOST}:${MQTT_PORT}"
@@ -65,6 +67,16 @@ if [ -n "${MQTT_PASSWORD}" ]; then
     COMMON_ARGS+=(--mqttpass="${MQTT_PASSWORD}")
 fi
 
+echo "[eBUSd Multi] Start Kelder -> ebusd/kelder"
+
+ebusd \
+    "${COMMON_ARGS[@]}" \
+    --device="${KELDER_DEVICE}" \
+    --port=8890 \
+    --mqtttopic=ebusd/kelder &
+
+PID_KELDER=$!
+
 echo "[eBUSd Multi] Start BG -> ebusd/bg"
 
 ebusd \
@@ -85,14 +97,14 @@ ebusd \
 
 PID_VERDIEPING=$!
 
-trap 'kill "$PID_BG" "$PID_VERDIEPING" 2>/dev/null || true; wait' TERM INT
+trap 'kill "$PID_KELDER" "$PID_BG" "$PID_VERDIEPING" 2>/dev/null || true; wait' TERM INT
 
-wait -n "$PID_BG" "$PID_VERDIEPING"
+wait -n "$PID_KELDER" "$PID_BG" "$PID_VERDIEPING"
 STATUS=$?
 
 echo "[eBUSd Multi] Een ebusd proces is gestopt (status ${STATUS})"
 
-kill "$PID_BG" "$PID_VERDIEPING" 2>/dev/null || true
+kill "$PID_KELDER" "$PID_BG" "$PID_VERDIEPING" 2>/dev/null || true
 wait || true
 
 exit "$STATUS"
