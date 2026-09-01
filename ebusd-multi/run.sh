@@ -1,12 +1,14 @@
-#!/usr/bin/with-contenv bashio
+#!/bin/bash
+set -e
 
-DEVICE=$(bashio::config 'bg_device')
+DEVICE="ens:192.168.2.211:9999"
 
-bashio::log.info "eBUSd Multi gestart"
-bashio::log.info "BG: ${DEVICE}"
+echo "[eBUSd Multi] gestart"
+echo "[eBUSd Multi] BG: ${DEVICE}"
 
 exec ebusd \
     --foreground \
     --device="${DEVICE}" \
     --scanconfig \
+    --configpath=https://ebus.github.io/en/ \
     --loglevel=info
