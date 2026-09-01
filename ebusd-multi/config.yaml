@@ -1,0 +1,9 @@
+name: "eBUSd Multi"
+version: "0.1.0"
+slug: "ebusd_multi"
+description: "Multiple ebusd instances for Brink Renovent Excellent"
+arch:
+  - amd64
+startup: application
+boot: auto
+init: false
