@@ -21,6 +21,8 @@ RUN apt-get update && \
     rm -f /tmp/ebusd.deb && \
     rm -rf /var/lib/apt/lists/*
 
+COPY ebusd-config /etc/ebusd-config
+
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
