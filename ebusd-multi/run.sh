@@ -1,6 +1,13 @@
 #!/usr/bin/with-contenv bashio
 
-bashio::log.info "eBUSd Multi 0.1.0 gestart"
-bashio::log.info "Testversie - nog geen ebusd actief"
+DEVICE=$(bashio::config 'bg_device')
 
-sleep infinity
+bashio::log.info "eBUSd Multi gestart"
+bashio::log.info "BG: ${DEVICE}"
+
+exec ebusd \
+    --foreground \
+    --device="${DEVICE}" \
+    --scanconfig \
+    --readonly \
+    --loglevel=info

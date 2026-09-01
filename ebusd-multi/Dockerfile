@@ -7,6 +7,10 @@ LABEL \
     io.hass.type="app" \
     io.hass.arch="amd64"
 
+RUN apk add --no-cache \
+    --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community \
+    ebusd
+
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
 

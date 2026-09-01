@@ -1,5 +1,5 @@
 name: "eBUSd Multi"
-version: "0.1.0"
+version: "0.1.1"
 slug: "ebusd_multi"
 description: "Multiple ebusd instances for Brink Renovent Excellent"
 arch:
@@ -7,3 +7,9 @@ arch:
 startup: application
 boot: auto
 init: false
+
+options:
+  bg_device: "ens:192.168.2.211:9999"
+
+schema:
+  bg_device: str
