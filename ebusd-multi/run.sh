@@ -70,6 +70,7 @@ echo "[eBUSd Multi] Start BG -> ebusd/bg"
 ebusd \
     "${COMMON_ARGS[@]}" \
     --device="${BG_DEVICE}" \
+    --port=8888 \
     --mqtttopic=ebusd/bg &
 
 PID_BG=$!
@@ -79,6 +80,7 @@ echo "[eBUSd Multi] Start Verdieping -> ebusd/verdieping"
 ebusd \
     "${COMMON_ARGS[@]}" \
     --device="${VERDIEPING_DEVICE}" \
+    --port=8889 \
     --mqtttopic=ebusd/verdieping &
 
 PID_VERDIEPING=$!
